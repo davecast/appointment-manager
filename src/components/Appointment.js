@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import Form from "./Form";
@@ -13,10 +13,22 @@ const FormContainer = styled.div``;
 const ResultContainer = styled.div``;
 
 const Appointment = () => {
+
+  //Arreglo de citas
+  const [appointments, setAppointments] = useState([]);
+  
+  //Funcion que tome las citas actuales y agregue las nuevas
+  const addCita = appointment => {
+    setAppointments([
+      ...appointments,
+      appointment
+    ])
+  }
+
   return (
     <AppointmentStyled>
       <FormContainer>
-        <Form />
+        <Form addCita={addCita} />
       </FormContainer>
       <ResultContainer></ResultContainer>
     </AppointmentStyled>
