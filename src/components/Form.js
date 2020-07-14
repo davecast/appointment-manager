@@ -1,8 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { v4 as uuid } from 'uuid'
 import styled from "styled-components";
-
-
+import PropTypes from 'prop-types';
 
 const FormStyled = styled.form``;
 const FormControl = styled.div`
@@ -47,7 +46,7 @@ const Button = styled.button`
   }
 `;
 
-const Form = ({ addCita }) => {
+const Form = ({ addAppointment }) => {
   //Creamos el estado de la cita
   const [appointment, setAppointment] = useState({
     pet: "",
@@ -93,7 +92,7 @@ const Form = ({ addCita }) => {
     appointment.id = uuid();
 
     // Crear la cita
-    addCita(appointment); 
+    addAppointment(appointment); 
 
     //Reiniciar el Form
     setAppointment({
@@ -159,5 +158,9 @@ const Form = ({ addCita }) => {
     </Fragment>
   );
 };
+
+Form.propTypes = {
+  addAppointment: PropTypes.func.isRequired
+}
 
 export default Form;

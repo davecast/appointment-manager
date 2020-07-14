@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 
 /*LAYOUT*/
 import Wrapper from "./layouts/Wrapper";
-import Appointment from "./components/Appointment";
+import Appointment from "./components/Appointments";
 
 function App() {
   return (

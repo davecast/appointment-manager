@@ -1,38 +1,35 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
 
-import Form from "./Form";
+import PropTypes from 'prop-types';
 
-const AppointmentStyled = styled.section`
-  display: grid;
-  grid-template: 1fr / 1fr 1fr;
-  grid-gap: 30px;
-`;
-
-const FormContainer = styled.div``;
-const ResultContainer = styled.div``;
-
-const Appointment = () => {
-
-  //Arreglo de citas
-  const [appointments, setAppointments] = useState([]);
-  
-  //Funcion que tome las citas actuales y agregue las nuevas
-  const addCita = appointment => {
-    setAppointments([
-      ...appointments,
-      appointment
-    ])
-  }
-
+const Appointment = ({ appointment, deteleAppointment }) => {
+  const { pet, owner, quote, hour, symptoms, id } = appointment;
   return (
-    <AppointmentStyled>
-      <FormContainer>
-        <Form addCita={addCita} />
-      </FormContainer>
-      <ResultContainer></ResultContainer>
-    </AppointmentStyled>
+    <div>
+      <p>
+        Mascota: <span>{pet}</span>{" "}
+      </p>
+      <p>
+        Dueño: <span>{owner}</span>{" "}
+      </p>
+      <p>
+        Fecha: <span>{quote}</span>{" "}
+      </p>
+      <p>
+        Hora: <span>{hour}</span>{" "}
+      </p>
+      <p>
+        Sintomas: <span>{symptoms}</span>{" "}
+      </p>
+
+      <button onClick={() => deteleAppointment(id)}>Eliminar</button>
+    </div>
   );
 };
+
+Appointment.protoType = {
+  appointment: PropTypes.object.isRequired,
+  deteleAppointment: PropTypes.func.isRequired
+}
 
 export default Appointment;
