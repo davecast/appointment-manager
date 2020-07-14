@@ -1,5 +1,8 @@
 import React, { Fragment, useState } from "react";
+import { v4 as uuid } from 'uuid'
 import styled from "styled-components";
+
+
 
 const FormStyled = styled.form``;
 const FormControl = styled.div`
@@ -44,7 +47,7 @@ const Button = styled.button`
   }
 `;
 
-const Form = () => {
+const Form = ({ addCita }) => {
   //Creamos el estado de la cita
   const [appointment, setAppointment] = useState({
     pet: "",
@@ -84,13 +87,22 @@ const Form = () => {
     }
 
     //Elominar mensaje de error
-    setError(false); 
+    setError(false ); 
 
     // Asignar un ID
+    appointment.id = uuid();
 
     // Crear la cita
+    addCita(appointment); 
 
     //Reiniciar el Form
+    setAppointment({
+      pet: "",
+      owner: "",
+      quote: "",
+      hour: "",
+      symptoms: "",
+    })
   };
   return (
     <Fragment>
