@@ -1,48 +1,99 @@
 import React, { Fragment, useState } from "react";
-import { v4 as uuid } from 'uuid'
+import { v4 as uuid } from "uuid";
 import styled from "styled-components";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-const FormStyled = styled.form``;
+/*LAYOUTS*/
+import Title from "../layouts/Title";
+
+const FormStyled = styled.form`
+  display: grid;
+  grid-template: 1fr / repeat(2, 1fr);
+  grid-gap: 20px;
+  grid-template-areas: "pet pet" "owner owner" "quote hour" "symtoms symtoms" "button button";
+`;
 const FormControl = styled.div`
-  margin-bottom: 20px;
+  :nth-child(1) {
+    grid-area: pet;
+  }
+  :nth-child(2) {
+    grid-area: owner;
+  }
+  :nth-child(3) {
+    grid-area: quote;
+  }
+  :nth-child(4) {
+    grid-area: hour;
+  }
+  :nth-child(5) {
+    grid-area: symtoms;
+  }
+  :nth-child(6) {
+    grid-area: button;
+  }
 `;
 const Label = styled.label`
   display: block;
   margin-bottom: 10px;
-  padding-left: 11px;
+  padding-left: 37px;
+  font-weight: bold;
+  color: var(--green);
 `;
 const Input = styled.input`
-  height: 50px;
+  height: 60px;
   width: 100%;
   outline: none;
-  padding: 0 10px;
-  border: 1px solid var(--grey);
-  border-radius: 4px;
+  padding: 0 35px;
+  border: 2px solid transparent;
+  border-radius: 30px;
   box-shadow: none;
+  background: var(--greenLight);
+  transition: all 0.3s ease-in-out;
+  ::placeholder {
+    font-weight: bold;
+    color: var(--grey);
+  }
+  :focus {
+    border: 2px solid var(--green);
+  }
+  :focus::placeholder {
+    color: var(--black);
+  }
 `;
 const TextArea = styled.textarea`
   width: 100%;
   outline: none;
-  padding: 15px 10px;
-  border: 1px solid var(--grey);
-  border-radius: 4px;
-  box-shadow: none;
+  padding: 30px;
+  border: 2px solid transparent;
   resize: none;
-  min-height: 120px;
+  min-height: 150px;
+  border-radius: 30px;
+  background: var(--greenLight);
+  transition: all 0.3s ease-in-out;
+  ::placeholder {
+    font-weight: bold;
+    color: var(--grey);
+  }
+  :focus {
+    border: 2px solid var(--green);
+  }
+  :focus::placeholder {
+    color: var(--black);
+  }
 `;
 const Button = styled.button`
   width: 100%;
-  height: 50px;
-  background-color: var(--blue);
+  height: 60px;
+  background-color: var(--green);
   color: var(--white);
-  border-radius: 4px;
+  border-radius: 30px;
   border: none;
   outline: none;
   cursor: pointer;
+  font-weight: bold;
   transition: all 0.3s ease-in-out;
   :hover {
-    background-color: #222;
+    opacity: 0.75;
   }
 `;
 
@@ -53,7 +104,7 @@ const Form = ({ addAppointment }) => {
     owner: "",
     quote: "",
     hour: "",
-    symptoms: "",
+    symptoms: ""
   });
 
   const [error, setError] = useState(false);
@@ -62,7 +113,7 @@ const Form = ({ addAppointment }) => {
   const handleChange = (e) => {
     setAppointment({
       ...appointment,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -81,18 +132,22 @@ const Form = ({ addAppointment }) => {
       hour.trim() === "" ||
       symptoms.trim() === ""
     ) {
-      setError(true); 
+      setError(true);
       return;
     }
 
     //Elominar mensaje de error
-    setError(false ); 
+    setError(false);
 
     // Asignar un ID
     appointment.id = uuid();
+    
+    // Asiganamos la imagen
+    let number = Math.floor(Math.random() * 9) + 1
+    appointment.image = `http://lorempixel.com/200/200/animals/${number}/`
 
     // Crear la cita
-    addAppointment(appointment); 
+    addAppointment(appointment);
 
     //Reiniciar el Form
     setAppointment({
@@ -101,17 +156,17 @@ const Form = ({ addAppointment }) => {
       quote: "",
       hour: "",
       symptoms: "",
-    })
+      image: ""
+    });
   };
   return (
     <Fragment>
-      <h2>Crear Cita</h2>
+      <Title>Crear Citas</Title>
 
-      { error ? <p>Todos los campos son obligatorio</p> : null }
+      {error ? <p>Todos los campos son obligatorio</p> : null}
 
       <FormStyled onSubmit={handleSubmit}>
         <FormControl>
-          <Label>Nombre Mascota</Label>
           <Input
             onChange={handleChange}
             type="text"
@@ -121,7 +176,6 @@ const Form = ({ addAppointment }) => {
           />
         </FormControl>
         <FormControl>
-          <Label>Nombre Dueño</Label>
           <Input
             onChange={handleChange}
             type="text"
@@ -144,7 +198,6 @@ const Form = ({ addAppointment }) => {
           <Input onChange={handleChange} type="time" name="hour" value={hour} />
         </FormControl>
         <FormControl>
-          <Label>Sintomas</Label>
           <TextArea
             onChange={handleChange}
             name="symptoms"
@@ -152,15 +205,16 @@ const Form = ({ addAppointment }) => {
             value={symptoms}
           ></TextArea>
         </FormControl>
-
-        <Button type="submit">Agregar Cita</Button>
+        <FormControl>
+          <Button type="submit">Crear Cita</Button>
+        </FormControl>
       </FormStyled>
     </Fragment>
   );
 };
 
 Form.propTypes = {
-  addAppointment: PropTypes.func.isRequired
-}
+  addAppointment: PropTypes.func.isRequired,
+};
 
 export default Form;

@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
+/*LAYOUT*/
+import Wrapper from "../layouts/Wrapper";
+import Title from "../layouts/Title";
+
+/*COMPONENTS*/
 import Form from "./Form";
 import Appointment from "./Appointment";
 
@@ -8,6 +13,7 @@ const AppointmentStyled = styled.section`
   display: grid;
   grid-template: 1fr / 1fr 1fr;
   grid-gap: 30px;
+  padding: 70px 0;
 `;
 
 const FormContainer = styled.div``;
@@ -51,21 +57,23 @@ const Appointments = () => {
     appointments.length === 0 ? "No hay citas" : "Administra tus citas";
 
   return (
-    <AppointmentStyled>
-      <FormContainer>
-        <Form addAppointment={addAppointment} />
-      </FormContainer>
-      <ResultContainer>
-        <h2>{title}</h2>
-        {appointments.map((appointment) => (
-          <Appointment
-            key={appointment.id}
-            appointment={appointment}
-            deteleAppointment={deteleAppointment}
-          />
-        ))}
-      </ResultContainer>
-    </AppointmentStyled>
+    <Wrapper>
+      <AppointmentStyled>
+        <FormContainer>
+          <Form addAppointment={addAppointment} />
+        </FormContainer>
+        <ResultContainer>
+          <Title>{title}</Title>
+          {appointments.map((appointment) => (
+            <Appointment
+              key={appointment.id}
+              appointment={appointment}
+              deteleAppointment={deteleAppointment}
+            />
+          ))}
+        </ResultContainer>
+      </AppointmentStyled>
+    </Wrapper>
   );
 };
 

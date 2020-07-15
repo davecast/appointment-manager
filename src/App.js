@@ -1,16 +1,14 @@
 import React, { Fragment } from "react";
 
-/*LAYOUT*/
-import Wrapper from "./layouts/Wrapper";
+/*COMPONENTS*/
+import Header from "./components/Header";
 import Appointment from "./components/Appointments";
 
 function App() {
   return (
     <Fragment>
-      <Wrapper>
-        <h1>Administrador de Citas</h1>
-        <Appointment />
-      </Wrapper>
+      <Header />
+      <Appointment />
     </Fragment>
   );
 }
