@@ -3,9 +3,9 @@ First project of the Udemy react js course.. This project is purely for personal
 
 if you like it, leave you star and follow me on github an instagram
 
-Mockup on HTML and CSS by @davecast on Instagram
+Developer by @davecast on Instagram
 
-![]()
+![](https://repository-images.githubusercontent.com/278809364/74db3e80-c620-11ea-9f2e-7050f46c888a)
 
 
 ### `npm start`
